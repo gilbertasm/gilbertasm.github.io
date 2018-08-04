@@ -1,7 +1,6 @@
 ---
 layout: post
 title:  "Implementing tail -f in Linux"
-categories: linux, c
 ---
 
 During implementation of utility (which purpose does not matter in context of this post) we needed to implement tail -f like behavior (i.e continuously read file updates). Traditional I/O multiplexing API (either POSIX [select(2)][select2]/[poll(2)][poll2] or Linux specific [epoll(2)][epoll2] does not work on regular files and return that file is always readable or EPERM error, depending on interface used.
