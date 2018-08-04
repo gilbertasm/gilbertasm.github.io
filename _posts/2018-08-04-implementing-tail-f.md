@@ -5,7 +5,7 @@ title:  "Implementing tail -f in Linux"
 
 During implementation of utility (which purpose does not matter in context of this post) we needed to implement tail -f like behavior (i.e continuously read file updates). Traditional I/O multiplexing API (either POSIX [select(2)][select2]/[poll(2)][poll2] or Linux specific [epoll(2)][epoll2] does not work on regular files and return that file is always readable or EPERM error, depending on interface used.
 
-In order to check for file changes we need another interface. In Linux systems we can use inotify(2) mechanism which we can use to check for file changes. After initializing inotify instance with inotify_init(2), we can add file to watch using inotify_add_watch(2), which returns watch descriptor. Now we can use this descriptor in I/O multiplexing API (select/poll/epoll), which will notify once descriptor is readable (i.e. there are I/O events for specified watched descriptor with associated file(s)).
+In order to check for file changes we need another interface. In Linux systems we can use [inotify API][inotify7] mechanism which we can use to check for file changes. After initializing inotify instance with [inotify_init(2)][inotify_init2], we can add file to watch using [inotify_add_watch(2)][inotify_add_watch2], which returns watch descriptor. Now we can use this descriptor in I/O multiplexing API (select/poll/epoll), which will notify once descriptor is readable (i.e. there are I/O events for specified watched descriptor with associated file(s)).
 
 Bellow is sample code which implements rudimentary tail -f behavior: only one file can be specified, code prints only changes made after executing command, code error checking is also lacking (no interruption by signal is checked, etc).
 
@@ -90,3 +90,6 @@ int main(int argc, char **argv) {
 [select2]: http://man7.org/linux/man-pages/man2/select.2.html
 [poll2]: http://man7.org/linux/man-pages/man2/poll.2.html
 [epoll2]: http://man7.org/linux/man-pages/man7/epoll.7.html
+[inotify7]: http://man7.org/linux/man-pages/man7/inotify.7.html
+[inotify_init2]: http://man7.org/linux/man-pages/man2/inotify_init.2.html
+[inotify_add_watch2]: http://man7.org/linux/man-pages/man2/inotify_add_watch.2.html
