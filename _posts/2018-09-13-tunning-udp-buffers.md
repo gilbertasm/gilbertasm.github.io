@@ -4,9 +4,9 @@ title:  "Tunning and observing UDP buffers"
 ---
 UDP buffers are controlled by 7 sysctl parameters. Individual buffer sizes are controlled by:
 
-* `net.core.wmem_default, net.core.wmem_max` -- default and max socket send buffer size in bytes. Each socket gets `wmem_default` send buffer size by default, and can request up to wmem_max with [setsockopt][setsockopt] option `SO_SNDBUF`. 
+* `net.core.wmem_default, net.core.wmem_max` -- default and max socket send buffer size in bytes. Each socket gets `wmem_default` send buffer size by default, and can request up to `wmem_max` with [setsockopt][setsockopt] option `SO_SNDBUF`. 
 
-* `net.core.rmem_default, net.core.rmem_max` -- default and max socket receive buffer size in bytes. Each socket gets `rmem_default` reveive buffer size by default, and can request up to rmem_max with [setsockopt][setsockopt] option `SO_RCVBUF`. 
+* `net.core.rmem_default, net.core.rmem_max` -- default and max socket receive buffer size in bytes. Each socket gets `rmem_default` reveive buffer size by default, and can request up to `rmem_max` with [setsockopt][setsockopt] option `SO_RCVBUF`. 
 
 Global system parameters are:
 
